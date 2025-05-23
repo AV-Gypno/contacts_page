@@ -10,6 +10,7 @@
   transition: 0.3s;
   display: flex;
   flex-direction: column;
+  z-index: 5;
 
   .aside__head {
     display: flex;

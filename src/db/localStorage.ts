@@ -12,12 +12,13 @@ class LocalStorage {
   }
 
   static __saveLS(data: IContact[]) {
-    console.log(data);
     localStorage.setItem('contacts', JSON.stringify(data));
   }
 
   static saveContact(contact: IContact) {
     const items = this.getContacts();
+    if (items.find((e: IContact) => contact.phone === e.phone)) return 'Такой номер уже существует';
+
     items.push(contact);
     this.__saveLS(items);
   }

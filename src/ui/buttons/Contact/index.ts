@@ -11,8 +11,8 @@ const ContactButton = () => {
   button.addEventListener('click', function (e) {
     waveAnimation(this, e);
 
-    const aside = document.querySelector('#aside');
-    aside?.classList.add('active');
+    document.querySelector('#aside')?.classList.add('active');
+    document.querySelector('#blackout')?.classList.add('active');
   });
 
   return button;

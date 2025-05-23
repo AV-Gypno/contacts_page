@@ -8,6 +8,8 @@ import MainButton from '../../ui/buttons/Main';
 import NameInput from '../../ui/inputs/Name';
 import PhoneInput from '../../ui/inputs/Phone';
 import LocalStorage from '../../db/localStorage';
+import forceUpdate from '../../utils/forceUpdate';
+import Contacts from '../Contacts';
 
 const aside: IComponent = {
   tag: 'aside',
@@ -98,7 +100,13 @@ function clickHandler() {
   if (phone.value && name.value) {
     const contact = createDTO(name.value, phone.value, groupName);
 
-    LocalStorage.saveContact(contact);
+    const message = LocalStorage.saveContact(contact);
+    if (message) {
+      phone.classList.add('mistake');
+      ttPhone?.classList.add('mistake');
+      ttPhone!.textContent = message;
+    }
+    forceUpdate(document.querySelector('#contacts-list')!, Contacts);
 
     name.value = '';
     phone.value = '';
