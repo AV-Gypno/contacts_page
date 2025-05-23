@@ -1,0 +1,39 @@
+.add-button {
+  background-color: $vine;
+  padding: 10px 38px 10px 14px;
+
+  &::after,
+  &::before {
+    content: '';
+    width: 10px;
+    height: 1.5px;
+    background-color: white;
+    position: absolute;
+    right: 12px;
+    top: calc(50% - 0.75px);
+  }
+
+  &::after {
+    transform: rotate(90deg);
+  }
+
+  &:hover {
+    background-color: $vine-hover;
+  }
+}
+
+.wave {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: wave 0.5s linear;
+  pointer-events: none;
+  position: absolute;
+}
+
+@keyframes wave {
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

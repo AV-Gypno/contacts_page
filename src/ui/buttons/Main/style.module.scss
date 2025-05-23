@@ -1,0 +1,9 @@
+.add-button {
+  background-color: $blue;
+  color: white;
+  padding: 10px 14px;
+
+  &:hover {
+    background-color: $blue-hover;
+  }
+}
