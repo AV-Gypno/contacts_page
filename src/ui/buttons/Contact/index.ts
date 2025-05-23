@@ -10,6 +10,9 @@ const ContactButton = () => {
 
   button.addEventListener('click', function (e) {
     waveAnimation(this, e);
+
+    const aside = document.querySelector('#aside');
+    aside?.classList.add('active');
   });
 
   return button;

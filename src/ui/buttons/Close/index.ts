@@ -1,19 +1,20 @@
 import { waveAnimation } from '../animations/waveAnimation';
 import commonStyles from './../common.module.scss';
+
 import styles from './style.module.scss';
 
-const MainButton = (text?: string, listener?: Function) => {
+const CloseButton = () => {
   const button = document.createElement('button');
-  button.classList.add(commonStyles['button'], styles['add-button']);
-
-  if (text) button.textContent = text;
+  button.classList.add(commonStyles['button'], styles['close-button']);
 
   button.addEventListener('click', function (e) {
     waveAnimation(this, e);
-    if (listener) listener();
+
+    const aside = document.querySelector('#aside');
+    aside?.classList.remove('active');
   });
 
   return button;
 };
 
-export default MainButton;
+export default CloseButton;

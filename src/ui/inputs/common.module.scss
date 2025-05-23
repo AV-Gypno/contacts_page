@@ -1,0 +1,24 @@
+.input {
+  font-size: 1rem;
+  background-color: $input-color;
+  outline: 0;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid $input-color;
+  width: 100%;
+  margin: 16px 0 0;
+
+  &::placeholder {
+    content: 'Введите номер';
+  }
+
+  &:hover {
+    border: 1px solid $blue;
+  }
+
+  &:focus {
+    border: 1px solid $blue;
+    box-shadow: 0 0 3px $blue;
+  }
+}

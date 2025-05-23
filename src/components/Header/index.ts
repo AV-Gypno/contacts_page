@@ -1,4 +1,4 @@
-import styles from './style.module.scss';
+import './style.scss';
 
 import { generateComponent } from '../../utils/componentGenerator';
 import icon from './../../assets/icons/contact-book 1 (Traced).jpg';
@@ -8,21 +8,20 @@ import MainButton from '../../ui/buttons/Main';
 
 const header: IComponent = {
   tag: 'header',
-  options: { className: styles['header'] },
+  options: { className: 'header' },
   children: [
     {
       tag: 'div',
-      options: { className: styles['contacts-book'] },
+      options: { className: 'contacts-book' },
       children: [
-        { tag: 'img', options: { className: styles['contacts-book__img'], src: icon } },
-        { tag: 'h2', options: { className: styles['contacts-book__text'], textContent: 'Книга контактов' } },
+        { tag: 'img', options: { className: 'contacts-book__img', src: icon } },
+        { tag: 'h2', options: { className: 'contacts-book__text', textContent: 'Книга контактов' } },
       ],
     },
-
     {
       tag: 'div',
       options: {
-        className: styles['controls'],
+        className: 'controls',
       },
       children: [
         { tag: '', component: ContactButton() },

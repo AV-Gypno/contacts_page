@@ -1,0 +1,88 @@
+.select {
+  position: relative;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  margin: 16px 0 0;
+
+  .select__header {
+    padding: 10px 15px;
+    background: $input-color;
+    border: 1px solid $input-color;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    color: $icon-color;
+
+    align-items: center;
+
+    &:hover {
+      border: 1px solid $blue;
+    }
+
+    &.open {
+      border: 1px solid $blue;
+      box-shadow: 0 0 3px $blue;
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      transition: transform 0.2s;
+      position: relative;
+      right: 0;
+
+      &::before,
+      &::after {
+        content: '';
+        background-color: $icon-color;
+        width: 8.5px;
+        height: 2px;
+        position: absolute;
+        top: 0;
+      }
+
+      &::before {
+        transform: rotate(-45deg);
+        right: -5px;
+      }
+
+      &::after {
+        transform: rotate(45deg);
+        right: 0;
+      }
+    }
+  }
+
+  .select__current {
+    display: block;
+  }
+
+  .select__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 100;
+    top: calc(8px + 100%);
+
+    .option {
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: $input-color;
+
+      &:hover {
+        background: $input-focus;
+      }
+
+      &.selected {
+        background: $input-focus;
+      }
+    }
+  }
+}
