@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  padding: 16px 20%;
+
+  .contacts-book {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > * {
+      margin: 0 8px;
+    }
+
+    .contacts-book__text {
+      font-size: 1.125rem;
+    }
+  }
+
+  .controls {
+    display: flex;
+
+    & > * {
+      margin: 0 8px;
+    }
+  }
+}
