@@ -1,11 +1,11 @@
 import type { IContact } from '../types/contact';
 
 class LocalStorage {
-  static __saveContactsLS(data: IContact[]): void {
+  private static __saveContactsLS(data: IContact[]): void {
     localStorage.setItem('contacts', JSON.stringify(data));
   }
 
-  static __saveGroupsLS(data: string[]): void {
+  private static __saveGroupsLS(data: string[]): void {
     localStorage.setItem('groups', JSON.stringify(data));
   }
 
@@ -17,6 +17,12 @@ class LocalStorage {
     localStorage.setItem('contacts', JSON.stringify([]));
 
     return [];
+  }
+
+  static getGroupContact(group: string): IContact[] {
+    const contacts = this.getContacts();
+
+    return contacts.filter((contact) => contact.group.toLowerCase() === group.toLowerCase());
   }
 
   static saveContact(newContact: IContact): string | void {
@@ -44,7 +50,7 @@ class LocalStorage {
 
   static saveGroup(newGroup: string): string | void {
     const items: string[] = this.getGroups();
-    if (items.find((group: string) => group === newGroup)) return 'Такая группа уже существует';
+    if (items.find((group: string) => group.toLowerCase() === newGroup.toLowerCase())) return 'Такая группа уже существует';
 
     items.push(newGroup);
     this.__saveGroupsLS(items);
@@ -54,6 +60,10 @@ class LocalStorage {
     const items = this.getGroups();
     const newItems = items.filter((group: string) => group !== deletedGroup);
     this.__saveGroupsLS(newItems);
+
+    const contacts = this.getContacts();
+    const newContacts = contacts.filter((contact: IContact) => contact.group !== deletedGroup);
+    this.__saveContactsLS(newContacts);
   }
 }
 

@@ -7,7 +7,7 @@
   border-radius: 6px;
 
   .contact-li {
-    width: 60.5%;
+    width: 100%;
     background-color: #fff;
     position: relative;
     font-size: 1.125rem;
@@ -26,12 +26,9 @@
       left: 2.5%;
     }
 
-    &:first-child::before {
-      display: none;
-    }
-
     .contact-li__name {
       color: $text-color;
+      text-transform: capitalize;
     }
 
     .contact-li__controls {
@@ -104,5 +101,81 @@
     margin: auto;
     width: fit-content;
     color: $text-color-opacity;
+  }
+}
+
+.accordeon {
+  display: flex;
+  flex-direction: column;
+
+  .accordeon-item {
+    margin-top: 24px;
+    width: 60.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 20px rgba($color: $black, $alpha: 0.05);
+    margin-bottom: 5px;
+    overflow: hidden;
+
+    .accordeon-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+      background-color: white;
+    }
+
+    &.active {
+      .accordeon-content {
+        max-height: 1000px;
+      }
+    }
+
+    &.active {
+      .accordeon-header {
+        background-color: $text-color-opacity;
+      }
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    .accordeon-item:last-child {
+      border-radius: 0 0 6px 6px;
+    }
+  }
+
+  .accordeon-header {
+    width: 100%;
+    height: 70px;
+    padding: 0 24px;
+    font-size: 1.125rem;
+    border: 0;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: left;
+
+    &:hover {
+      background-color: #fbfbfb;
+    }
+
+    .accordeon-h {
+      color: $blue;
+      pointer-events: none;
+    }
   }
 }

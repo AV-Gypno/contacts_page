@@ -8,6 +8,7 @@ import NameInput from '../../ui/inputs/Name';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import openPopup from '../../utils/openPopup';
+import Contacts from '../Contacts';
 import ContactAside from './contactAside';
 
 import './style.scss';
@@ -129,6 +130,7 @@ function saveClickHandler() {
     if (!message) {
       forceUpdate(document.querySelector('#contact-aside')!, ContactAside);
       forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+      forceUpdate(document.querySelector('#contacts-list')!, Contacts);
     }
   } else {
     document.querySelector('.tooltip.group')?.classList.add('mistake');

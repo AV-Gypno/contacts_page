@@ -66,7 +66,7 @@ const createDTO = (name: string, phone: string, group: string): IContact => {
     id: phone,
     phone: phone,
     name: name,
-    group: group,
+    group: group.toLowerCase(),
   };
 };
 
@@ -99,10 +99,10 @@ function clickHandler() {
 
   const groupText = group.textContent?.toLowerCase() ?? '';
   const hasGroup = groupText.toLowerCase() !== 'Выберите группу'.toLowerCase();
-  const groupName = hasGroup ? groupText : 'все';
+  const groupName = hasGroup ? groupText : 'Bce';
   if (phone.value && name.value) {
     const contact = createDTO(name.value, phone.value, groupName);
-
+    if (groupName === 'Bce') LocalStorage.saveGroup(groupName);
     const message = LocalStorage.saveContact(contact);
     if (message) {
       phone.classList.add('mistake');

@@ -1,6 +1,5 @@
 import type { IComponent } from '../../types/component';
 import LocalStorage from '../../db/localStorage';
-import type { IContact } from '../../types/contact';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import DeleteSVG from '../../ui/icons/delete';
@@ -50,6 +49,41 @@ const getContactStructure = (id: string, contactName: string, contactPhone: stri
   ],
 });
 
+const getAccordeonItemStructure = (group: string, items: IComponent[]): IComponent => {
+  return {
+    tag: 'div',
+    options: { className: 'accordeon-item' },
+    children: [
+      {
+        tag: 'button',
+        options: { className: 'accordeon-header' },
+        children: [{ tag: 'h3', options: { className: 'accordeon-h', textContent: group } }],
+        listeners: { click: toggleAccordion },
+      },
+      {
+        tag: 'ul',
+        options: { className: 'accordeon-content' },
+        children: items,
+      },
+    ],
+  };
+};
+
+function toggleAccordion(e: MouseEvent) {
+  const target = e.target as HTMLButtonElement;
+  const accordionItem = target.parentElement!;
+  const isActive = accordionItem.classList.contains('active');
+  console.log(accordionItem);
+
+  document.querySelectorAll('.accordeon-item').forEach((item) => {
+    item.classList.remove('active');
+  });
+
+  if (!isActive) {
+    accordionItem.classList.add('active');
+  }
+}
+
 function deleteClickHandler(e: MouseEvent) {
   const target = e.target as HTMLElement;
   const id = target.id.split('--')[1];
@@ -58,19 +92,29 @@ function deleteClickHandler(e: MouseEvent) {
   forceUpdate(document.querySelector('#contacts-list')!, Contacts);
 }
 
-const getContacts = (): IComponent[] => {
+const getContactListStructure = (): IComponent => {
+  const groups = LocalStorage.getGroups();
+  const groupContacts = groups.map((group) => ({ group: group, data: LocalStorage.getGroupContact(group) }));
+
   const contacts = LocalStorage.getContacts();
+  const isContactsEmpty = !contacts.length && !groups.length;
+  const emptyText = [{ tag: 'p', options: { textContent: 'Список контактов пуст', className: 'empty-text' } }];
 
-  return contacts.length > 0
-    ? contacts.map((e: IContact) => getContactStructure(e.id, e.name, e.phone))
-    : [{ tag: 'p', options: { textContent: 'Список контактов пуст', className: 'empty-text' } }];
+  const children = isContactsEmpty
+    ? emptyText
+    : groupContacts.map(({ group, data }) =>
+        getAccordeonItemStructure(
+          group,
+          data.map((contact) => getContactStructure(contact.id, contact.name, contact.phone))
+        )
+      );
+
+  return {
+    tag: 'ul',
+    options: { className: 'accordeon contacts', id: 'contacts-list' },
+    children: children,
+  };
 };
-
-const getContactListStructure = (): IComponent => ({
-  tag: 'ul',
-  options: { className: 'contacts', id: 'contacts-list' },
-  children: getContacts(),
-});
 
 const Contacts = () => {
   return generateComponent(getContactListStructure());
