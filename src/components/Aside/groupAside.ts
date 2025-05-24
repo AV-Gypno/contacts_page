@@ -7,6 +7,7 @@ import DeleteSVG from '../../ui/icons/delete';
 import NameInput from '../../ui/inputs/Name';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
+import ContactAside from './contactAside';
 
 import './style.scss';
 
@@ -102,6 +103,7 @@ function addClickHandler() {
   };
 
   const groupList = document.querySelector('.group-list');
+
   groupList?.append(generateComponent(inputGroup));
 }
 
@@ -117,6 +119,7 @@ function saveClickHandler() {
 
   if (group.length) {
     LocalStorage.saveGroup(group);
+    forceUpdate(document.querySelector('#contact-aside')!, ContactAside);
     forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
   } else {
     document.querySelector('.tooltip.group')?.classList.add('mistake');

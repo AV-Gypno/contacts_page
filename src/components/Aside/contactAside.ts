@@ -1,5 +1,4 @@
 import LocalStorage from '../../db/localStorage';
-import type { IComponent } from '../../types/component';
 import type { IContact } from '../../types/contact';
 import CloseButton from '../../ui/buttons/Close';
 import SaveButton from '../../ui/buttons/Save';
@@ -12,7 +11,7 @@ import Contacts from '../Contacts';
 
 import './style.scss';
 
-const contactAside: IComponent = {
+const getContactAsideStructure = () => ({
   tag: 'aside',
   options: { className: 'aside', id: 'contact-aside' },
   children: [
@@ -59,7 +58,7 @@ const contactAside: IComponent = {
 
     { tag: 'div', options: { className: 'aside__footer' }, children: [{ tag: '', component: SaveButton(clickHandler) }] },
   ],
-};
+});
 
 const createDTO = (name: string, phone: string, group: string): IContact => {
   return {
@@ -116,6 +115,10 @@ function clickHandler() {
   }
 }
 
-const ContactAside = generateComponent(contactAside);
+const ContactAside = () => {
+  const ContactAside = generateComponent(getContactAsideStructure());
+
+  return ContactAside;
+};
 
 export default ContactAside;

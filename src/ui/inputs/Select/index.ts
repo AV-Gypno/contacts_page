@@ -1,3 +1,4 @@
+import LocalStorage from '../../../db/localStorage';
 import type { IComponent } from '../../../types/component';
 import { generateComponent } from '../../../utils/componentGenerator';
 
@@ -10,36 +11,39 @@ const getOption = (text: string): IComponent => {
   };
 };
 
-const select: IComponent = {
-  tag: 'div',
-  options: { className: styles['select'] },
-  children: [
-    {
-      tag: 'div',
-      options: { className: styles['select__header'] },
-      children: [
-        {
-          tag: 'span',
-          options: { textContent: 'Выберите группу', className: styles['select__current'], id: 'group' },
-        },
-        {
-          tag: 'span',
-          options: { className: styles['arrow'] },
-        },
-      ],
-    },
-    {
-      tag: 'div',
-      options: { className: styles['select__options'] },
-      children: [getOption('Группа 1'), getOption('Группа 2'), getOption('Группа 3')],
-    },
-  ],
+const getSelectStructure = (options: string[] = []) => {
+  return {
+    tag: 'div',
+    options: { className: styles['select'] },
+    children: [
+      {
+        tag: 'div',
+        options: { className: styles['select__header'] },
+        children: [
+          {
+            tag: 'span',
+            options: { textContent: 'Выберите группу', className: styles['select__current'], id: 'group' },
+          },
+          {
+            tag: 'span',
+            options: { className: styles['arrow'] },
+          },
+        ],
+      },
+      {
+        tag: 'div',
+        options: { className: styles['select__options'] },
+        children: options.map((option) => getOption(option)),
+      },
+    ],
+  };
 };
 
 const getSelector = (selector: string) => `.${styles[selector]}`;
 
 const Select = () => {
-  const Select = generateComponent(select);
+  const groups = LocalStorage.getGroups();
+  const Select = generateComponent(getSelectStructure(groups));
 
   const selectHeader = Select.querySelector(getSelector('select__header'));
   const selectOptions = Select.querySelector(getSelector('select__options')) as HTMLElement;

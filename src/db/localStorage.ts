@@ -9,13 +9,6 @@ class LocalStorage {
     localStorage.setItem('groups', JSON.stringify(data));
   }
 
-  static __updateGroupsLS() {
-    const contacts = this.getContacts();
-    const groups: string[] = contacts.map((contact) => contact.group) || [];
-
-    this.__saveGroupsLS(Array.from(new Set(groups)));
-  }
-
   static getContacts(): IContact[] {
     if (localStorage.getItem('contacts')) {
       return JSON.parse(localStorage.getItem('contacts') || '[]');
@@ -41,13 +34,12 @@ class LocalStorage {
   }
 
   static getGroups(): string[] {
-    if (localStorage.getItem('groups')) {
-      return JSON.parse(localStorage.getItem('groups') || '[]');
+    if (!localStorage.getItem('groups')) {
+      localStorage.setItem('groups', JSON.stringify([]));
+      return [];
     }
 
-    localStorage.setItem('groups', JSON.stringify([]));
-
-    return [];
+    return JSON.parse(localStorage.getItem('groups') || '[]');
   }
 
   static saveGroup(newGroup: string): string | void {
