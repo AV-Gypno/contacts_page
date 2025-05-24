@@ -7,6 +7,7 @@ import PhoneInput from '../../ui/inputs/Phone';
 import Select from '../../ui/inputs/Select';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
+import openToast from '../../utils/openToast';
 import Contacts from '../Contacts';
 
 import './style.scss';
@@ -112,6 +113,8 @@ function clickHandler() {
 
     name.value = '';
     phone.value = '';
+
+    openToast();
   }
 }
 
