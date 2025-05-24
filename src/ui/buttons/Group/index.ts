@@ -6,17 +6,17 @@ import styles from './style.module.scss';
 
 const button = {
   tag: 'button',
-  options: { className: `${commonStyles['button']} ${styles['add-button']}`, textContent: 'Добавить контакт' },
+  options: { className: `${commonStyles['button']} ${styles['add-button']}`, textContent: 'Группы' },
   listeners: { click: clickHandler },
 };
 
 function clickHandler(e: MouseEvent) {
   waveAnimation(e.target as HTMLButtonElement, e);
 
-  document.querySelector('#contact-aside')?.classList.add('active');
+  document.querySelector('#group-aside')?.classList.add('active');
   document.querySelector('#blackout')?.classList.add('active');
 }
 
-const ContactButton = generateComponent(button);
+const GroupButton = generateComponent(button);
 
-export default ContactButton;
+export default GroupButton;

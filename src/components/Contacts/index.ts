@@ -64,7 +64,7 @@ const getContacts = (): IComponent[] => {
 
   return contacts.length > 0
     ? contacts.map((e: IContact) => getContactStructure(e.id, e.name, e.phone))
-    : [{ tag: 'span', options: { textContent: 'Список контактов пуст', className: 'empty-text' } }];
+    : [{ tag: 'p', options: { textContent: 'Список контактов пуст', className: 'empty-text' } }];
 };
 
 const getContactListStructure = (): IComponent => ({

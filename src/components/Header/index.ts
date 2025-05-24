@@ -4,7 +4,7 @@ import { generateComponent } from '../../utils/componentGenerator';
 import icon from './../../assets/icons/contact-book 1 (Traced).jpg';
 import type { IComponent } from '../../types/component';
 import ContactButton from '../../ui/buttons/Contact';
-import MainButton from '../../ui/buttons/Main';
+import GroupButton from '../../ui/buttons/Group';
 
 const header: IComponent = {
   tag: 'header',
@@ -24,8 +24,8 @@ const header: IComponent = {
         className: 'controls',
       },
       children: [
-        { tag: '', component: ContactButton() },
-        { tag: '', component: MainButton('Группы') },
+        { tag: '', component: ContactButton },
+        { tag: '', component: GroupButton },
       ],
     },
   ],

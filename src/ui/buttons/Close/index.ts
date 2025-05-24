@@ -10,7 +10,8 @@ const CloseButton = () => {
   button.addEventListener('click', function (e) {
     waveAnimation(this, e);
 
-    document.querySelector('#aside')?.classList.remove('active');
+    document.querySelector('#group-aside')?.classList.remove('active');
+    document.querySelector('#contact-aside')?.classList.remove('active');
     document.querySelector('#blackout')?.classList.remove('active');
   });
 
