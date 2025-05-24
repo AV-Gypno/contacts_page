@@ -119,9 +119,17 @@ function saveClickHandler() {
   const group = (document.querySelector('#group-input') as HTMLInputElement).value;
 
   if (group.length) {
-    LocalStorage.saveGroup(group);
-    forceUpdate(document.querySelector('#contact-aside')!, ContactAside);
-    forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+    const message = LocalStorage.saveGroup(group);
+
+    if (message) {
+      document.querySelector('.tooltip.group')!.textContent = message;
+      document.querySelector('.tooltip.group')!.classList.add('mistake');
+    }
+
+    if (!message) {
+      forceUpdate(document.querySelector('#contact-aside')!, ContactAside);
+      forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+    }
   } else {
     document.querySelector('.tooltip.group')?.classList.add('mistake');
   }
