@@ -1,0 +1,20 @@
+.delete-button {
+  background-color: $blue;
+  color: white;
+  padding: 10px 18px;
+
+  &:hover {
+    background-color: $blue-hover;
+  }
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: blue;
+  padding: 10px 14px;
+  margin-right: 12px;
+
+  &:hover {
+    background-color: rgba($blue-hover, 0.1);
+  }
+}

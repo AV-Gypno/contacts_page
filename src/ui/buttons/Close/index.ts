@@ -14,9 +14,8 @@ const button: IComponent = {
 function clickHandler(e: MouseEvent) {
   waveAnimation(e.target as HTMLButtonElement, e);
 
-  document.querySelector('#group-aside')?.classList.remove('active');
-  document.querySelector('#contact-aside')?.classList.remove('active');
-  document.querySelector('#blackout')?.classList.remove('active');
+  document.querySelector('#popup')?.classList.remove('active');
+  document.querySelector('#top-blackout')?.classList.remove('active');
 }
 
 const CloseButton = () => {

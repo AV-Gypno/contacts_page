@@ -4,7 +4,8 @@ import Contacts from './components/Contacts';
 import Blackout from './components/Blackout';
 import ContactAside from './components/Aside/contactAside';
 import GroupAside from './components/Aside/groupAside';
+import TopBlackout from './components/Blackout/TopBlackout';
 
 const app = document.getElementById('app');
 
-app?.append(Blackout, Header, ContactAside(), GroupAside(), Contacts());
+app?.append(TopBlackout, Blackout, Header, ContactAside(), GroupAside(false)(), Contacts());

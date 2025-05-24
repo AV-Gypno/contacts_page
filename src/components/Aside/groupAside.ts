@@ -7,6 +7,7 @@ import DeleteSVG from '../../ui/icons/delete';
 import NameInput from '../../ui/inputs/Name';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
+import openPopup from '../../utils/openPopup';
 import ContactAside from './contactAside';
 
 import './style.scss';
@@ -130,8 +131,7 @@ const deleteClickHandler = (e: MouseEvent) => {
   const target = e.target as HTMLButtonElement;
   const groupName = target.id;
 
-  LocalStorage.deleteGroup(groupName);
-  forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+  openPopup(groupName);
 };
 
 const GroupAside = (isActive: boolean = false): (() => HTMLElement) => {
@@ -140,4 +140,4 @@ const GroupAside = (isActive: boolean = false): (() => HTMLElement) => {
   return () => generateComponent(structure);
 };
 
-export default GroupAside(false);
+export default GroupAside;
