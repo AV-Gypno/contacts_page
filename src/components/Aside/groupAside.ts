@@ -4,20 +4,19 @@ import AddGroupButton from '../../ui/buttons/AddGroup';
 import CloseButton from '../../ui/buttons/Close';
 import SaveButton from '../../ui/buttons/Save';
 import DeleteSVG from '../../ui/icons/delete';
+import NameInput from '../../ui/inputs/Name';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
-import deleteImg from './../../assets/icons/delete.svg';
 
 import './style.scss';
 
 const getGroupsStructure = (): IComponent[] => {
-  console.log(deleteImg);
   const groups = LocalStorage.getGroups();
 
   return groups.map((group: string) => ({
     tag: 'li',
     options: {
-      className: 'group',
+      className: 'group-li',
     },
     children: [
       {
@@ -42,7 +41,7 @@ const getGroupsStructure = (): IComponent[] => {
   }));
 };
 
-const getGroupsListStructure = (isActive: boolean): IComponent => {
+const getGroupListStructure = (isActive: boolean): IComponent => {
   return {
     tag: 'aside',
     options: { className: `aside ${isActive && 'active'}`, id: 'group-aside' },
@@ -68,16 +67,60 @@ const getGroupsListStructure = (isActive: boolean): IComponent => {
         tag: 'div',
         options: { className: 'aside__footer' },
         children: [
-          { tag: '', component: AddGroupButton(clickHandler) },
-          { tag: '', component: SaveButton(clickHandler) },
+          { tag: '', component: AddGroupButton(addClickHandler) },
+          { tag: '', component: SaveButton(saveClickHandler) },
         ],
       },
     ],
   };
 };
 
-function clickHandler() {
-  console.log('handle');
+function addClickHandler() {
+  const inputGroup = {
+    tag: 'li',
+    options: {
+      className: 'group-li',
+    },
+    children: [
+      {
+        tag: '',
+        component: NameInput('Введите название', 'group-input'),
+      },
+      { tag: 'span', options: { className: 'tooltip group', textContent: 'Поле является обязательным' } },
+      {
+        tag: 'button',
+        options: { className: 'group-button delete' },
+        listeners: { click: closeInputHandler },
+        children: [
+          {
+            tag: '',
+            component: DeleteSVG('delete-icon'),
+          },
+        ],
+      },
+    ],
+  };
+
+  const groupList = document.querySelector('.group-list');
+  groupList?.append(generateComponent(inputGroup));
+}
+
+function closeInputHandler(e: MouseEvent) {
+  const blockToRemove = (e.target as HTMLButtonElement).parentNode as HTMLElement;
+  blockToRemove?.remove();
+
+  forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+}
+
+function saveClickHandler() {
+  const group = (document.querySelector('#group-input') as HTMLInputElement).value;
+
+  if (group.length) {
+    LocalStorage.saveGroup(group);
+    forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
+  } else {
+    document.querySelector('.tooltip.group')?.classList.add('mistake');
+  }
 }
 
 const deleteClickHandler = (e: MouseEvent) => {
@@ -88,12 +131,10 @@ const deleteClickHandler = (e: MouseEvent) => {
   forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
 };
 
-const GroupAside = (isActive: boolean = false) => {
-  return () => {
-    const GroupAside = generateComponent(getGroupsListStructure(isActive));
+const GroupAside = (isActive: boolean = false): (() => HTMLElement) => {
+  const structure = getGroupListStructure(isActive);
 
-    return GroupAside;
-  };
+  return () => generateComponent(structure);
 };
 
-export default GroupAside();
+export default GroupAside(false);

@@ -1,13 +1,13 @@
 import { generateComponent } from '../../../utils/componentGenerator';
 import styles from './../common.module.scss';
 
-const nameInput = {
+const getNameInputStructure = (text: string = 'Введите ФИО', id: string = 'name') => ({
   tag: 'input',
-  options: { type: 'text', value: '', placeholder: 'Введите ФИО', className: styles['input'], required: true, id: 'name' },
-};
+  options: { type: 'text', value: '', placeholder: text, className: styles['input'], required: true, id: id },
+});
 
-const NameInput = () => {
-  const component = generateComponent(nameInput);
+const NameInput = (text?: string, id?: string) => {
+  const component = generateComponent(getNameInputStructure(text, id));
 
   component.addEventListener('keypress', (e) => {
     const target = e.target as HTMLInputElement;

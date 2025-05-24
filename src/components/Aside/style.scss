@@ -39,6 +39,13 @@
 
   .aside__inputs {
     margin-top: 48px;
+
+    .input-block {
+      margin: 16px 0;
+    }
+    .input-block:first-child {
+      margin-top: 0;
+    }
   }
 
   .aside__footer {
@@ -60,10 +67,15 @@
   display: none;
   color: $red;
   font-size: 0.875rem;
-}
 
-.tooltip.mistake {
-  display: inline;
+  &.mistake {
+    display: inline;
+  }
+
+  &.group {
+    position: absolute;
+    bottom: -23px;
+  }
 }
 
 .contact-button {
@@ -72,11 +84,20 @@
   }
 }
 
-.group {
+.group-list {
+  margin-top: 47px;
+}
+
+.group-li {
   display: flex;
   justify-content: space-between;
+  position: relative;
   align-items: center;
-  margin-top: 47px;
+  margin: 16px 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
 
   .group-name {
     background-color: rgba($black, 0.05);

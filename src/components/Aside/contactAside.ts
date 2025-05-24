@@ -98,13 +98,10 @@ function clickHandler() {
   }
 
   const groupText = group.textContent?.toLowerCase() ?? '';
-  console.log(groupText);
   const hasGroup = groupText.toLowerCase() !== 'Выберите группу'.toLowerCase();
   const groupName = hasGroup ? groupText : 'все';
-  console.log(groupName);
   if (phone.value && name.value) {
     const contact = createDTO(name.value, phone.value, groupName);
-    console.log(group, groupName);
 
     const message = LocalStorage.saveContact(contact);
     if (message) {
