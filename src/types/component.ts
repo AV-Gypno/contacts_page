@@ -1,5 +1,5 @@
 export interface IComponent {
-  component?: HTMLElement;
+  component?: HTMLElement | any;
   tag: string | '';
   options?: IOptions;
   children?: IComponent[];

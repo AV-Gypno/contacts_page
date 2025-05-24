@@ -1,0 +1,10 @@
+.add-group-button {
+  background-color: transparent;
+  color: blue;
+  padding: 10px 14px;
+  margin-right: 12px;
+
+  &:hover {
+    background-color: rgba($blue-hover, 0.1);
+  }
+}

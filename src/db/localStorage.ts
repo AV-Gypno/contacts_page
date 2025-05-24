@@ -1,15 +1,22 @@
 import type { IContact } from '../types/contact';
 
 class LocalStorage {
-  static __saveContactsLS(data: IContact[]) {
+  static __saveContactsLS(data: IContact[]): void {
     localStorage.setItem('contacts', JSON.stringify(data));
   }
 
-  static __saveGroupsLS(data: string[]) {
+  static __saveGroupsLS(data: string[]): void {
     localStorage.setItem('groups', JSON.stringify(data));
   }
 
-  static getContacts() {
+  static __updateGroupsLS() {
+    const contacts = this.getContacts();
+    const groups: string[] = contacts.map((contact) => contact.group) || [];
+
+    this.__saveGroupsLS(Array.from(new Set(groups)));
+  }
+
+  static getContacts(): IContact[] {
     if (localStorage.getItem('contacts')) {
       return JSON.parse(localStorage.getItem('contacts') || '[]');
     }
@@ -19,7 +26,7 @@ class LocalStorage {
     return [];
   }
 
-  static saveContact(newContact: IContact) {
+  static saveContact(newContact: IContact): string | void {
     const items: IContact[] = this.getContacts();
     if (items.find((contact: IContact) => contact.phone === newContact.phone)) return 'Такой номер уже существует';
 
@@ -27,7 +34,13 @@ class LocalStorage {
     this.__saveContactsLS(items);
   }
 
-  static getGroups() {
+  static deleteContact(id: string): void {
+    const items = this.getContacts();
+    const newItems = items.filter((e: IContact) => e.id !== id);
+    this.__saveContactsLS(newItems);
+  }
+
+  static getGroups(): string[] {
     if (localStorage.getItem('groups')) {
       return JSON.parse(localStorage.getItem('groups') || '[]');
     }
@@ -37,7 +50,7 @@ class LocalStorage {
     return [];
   }
 
-  static saveGroup(newGroup: string) {
+  static saveGroup(newGroup: string): string | void {
     const items: string[] = this.getGroups();
     if (items.find((group: string) => group === newGroup)) return 'Такая группа уже существует';
 
@@ -45,10 +58,10 @@ class LocalStorage {
     this.__saveGroupsLS(items);
   }
 
-  static deleteContact(id: string) {
-    const items = this.getContacts();
-    const newItems = items.filter((e: IContact) => e.id !== id);
-    this.__saveContactsLS(newItems);
+  static deleteGroup(deletedGroup: string): void {
+    const items = this.getGroups();
+    const newItems = items.filter((group: string) => group !== deletedGroup);
+    this.__saveGroupsLS(newItems);
   }
 }
 

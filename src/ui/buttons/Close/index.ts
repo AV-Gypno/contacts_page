@@ -1,21 +1,28 @@
+import type { IComponent } from '../../../types/component';
+import { generateComponent } from '../../../utils/componentGenerator';
 import { waveAnimation } from '../animations/waveAnimation';
 import commonStyles from './../common.module.scss';
 
 import styles from './style.module.scss';
 
+const button: IComponent = {
+  tag: 'button',
+  options: { className: `${commonStyles['button']} ${styles['close-button']}` },
+  listeners: { click: clickHandler },
+};
+
+function clickHandler(e: MouseEvent) {
+  waveAnimation(e.target as HTMLButtonElement, e);
+
+  document.querySelector('#group-aside')?.classList.remove('active');
+  document.querySelector('#contact-aside')?.classList.remove('active');
+  document.querySelector('#blackout')?.classList.remove('active');
+}
+
 const CloseButton = () => {
-  const button = document.createElement('button');
-  button.classList.add(commonStyles['button'], styles['close-button']);
+  const CloseButton = generateComponent(button);
 
-  button.addEventListener('click', function (e) {
-    waveAnimation(this, e);
-
-    document.querySelector('#group-aside')?.classList.remove('active');
-    document.querySelector('#contact-aside')?.classList.remove('active');
-    document.querySelector('#blackout')?.classList.remove('active');
-  });
-
-  return button;
+  return CloseButton;
 };
 
 export default CloseButton;

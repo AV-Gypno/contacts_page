@@ -4,7 +4,9 @@ import Contacts from './components/Contacts';
 import Blackout from './components/Blackout';
 import ContactAside from './components/Aside/contactAside';
 import GroupAside from './components/Aside/groupAside';
+import LocalStorage from './db/localStorage';
 
 const app = document.getElementById('app');
 
-app?.append(Blackout, Header, ContactAside, GroupAside, Contacts());
+LocalStorage.__updateGroupsLS();
+app?.append(Blackout, Header, ContactAside, GroupAside(), Contacts());

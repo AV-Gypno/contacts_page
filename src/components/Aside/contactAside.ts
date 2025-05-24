@@ -1,5 +1,6 @@
 import LocalStorage from '../../db/localStorage';
 import type { IComponent } from '../../types/component';
+import type { IContact } from '../../types/contact';
 import CloseButton from '../../ui/buttons/Close';
 import SaveButton from '../../ui/buttons/Save';
 import NameInput from '../../ui/inputs/Name';
@@ -60,7 +61,7 @@ const contactAside: IComponent = {
   ],
 };
 
-const createDTO = (name: string, phone: string, group?: string) => {
+const createDTO = (name: string, phone: string, group: string): IContact => {
   return {
     id: phone,
     phone: phone,
@@ -96,9 +97,14 @@ function clickHandler() {
     ttPhone?.classList.remove('mistake');
   }
 
-  const groupName = group.textContent ? group.textContent : 'all';
+  const groupText = group.textContent?.toLowerCase() ?? '';
+  console.log(groupText);
+  const hasGroup = groupText.toLowerCase() !== 'Выберите группу'.toLowerCase();
+  const groupName = hasGroup ? groupText : 'все';
+  console.log(groupName);
   if (phone.value && name.value) {
     const contact = createDTO(name.value, phone.value, groupName);
+    console.log(group, groupName);
 
     const message = LocalStorage.saveContact(contact);
     if (message) {

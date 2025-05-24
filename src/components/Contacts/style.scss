@@ -51,16 +51,46 @@
       border: 1px solid $border-color;
       cursor: pointer;
 
-      & > img {
+      & > .delete-svg {
+        fill: $black;
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      &:hover .delete-svg {
+        fill: white;
+        opacity: 1;
+      }
+
+      & > .edit-svg {
+        fill: $black;
+        opacity: 0.3;
         pointer-events: none;
       }
 
       &.edit {
         margin-left: 40px;
+        transition: 0.15s;
+
+        &:hover {
+          background-color: $blue;
+
+          .edit-svg {
+            fill: white;
+            opacity: 1;
+          }
+        }
       }
 
       &.delete {
+        transition: 0.15s;
         margin-left: 8px;
+      }
+
+      &.delete:hover {
+        margin-left: 8px;
+        border: 1px solid $red;
+        background-color: $red;
       }
     }
   }

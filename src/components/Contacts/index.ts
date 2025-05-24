@@ -2,12 +2,11 @@ import type { IComponent } from '../../types/component';
 import LocalStorage from '../../db/localStorage';
 import type { IContact } from '../../types/contact';
 import { generateComponent } from '../../utils/componentGenerator';
-
-import editImg from './../../assets/icons/edit.svg';
-import deleteImg from './../../assets/icons/delete.svg';
+import forceUpdate from '../../utils/forceUpdate';
+import DeleteSVG from '../../ui/icons/delete';
+import EditIcon from '../../ui/icons/edit';
 
 import './style.scss';
-import forceUpdate from '../../utils/forceUpdate';
 
 const getContactStructure = (id: string, contactName: string, contactPhone: string): IComponent => ({
   tag: 'li',
@@ -30,8 +29,8 @@ const getContactStructure = (id: string, contactName: string, contactPhone: stri
           options: { className: 'contact-button edit', id: `edit--${id}` },
           children: [
             {
-              tag: 'img',
-              options: { src: editImg },
+              tag: '',
+              component: EditIcon('edit-svg'),
             },
           ],
         },
@@ -41,8 +40,8 @@ const getContactStructure = (id: string, contactName: string, contactPhone: stri
           listeners: { click: deleteClickHandler },
           children: [
             {
-              tag: 'img',
-              options: { src: deleteImg },
+              tag: '',
+              component: DeleteSVG('delete-svg'),
             },
           ],
         },
