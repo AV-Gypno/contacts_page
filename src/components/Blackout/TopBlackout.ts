@@ -8,6 +8,10 @@ const blackout = {
   listeners: { click: closeAll },
 };
 
-const Blackout = generateComponent(blackout);
+const TopBlackout = () => {
+  const Blackout = generateComponent(blackout);
 
-export default Blackout;
+  return Blackout;
+};
+
+export default TopBlackout;

@@ -9,4 +9,4 @@ import Toast from './components/Toast';
 
 const app = document.getElementById('app');
 
-app?.append(TopBlackout, Blackout, Header, ContactAside(), GroupAside(false)(), Contacts(), Toast());
+app?.append(TopBlackout(), Blackout(), Header(), ContactAside(), GroupAside(false)(), Contacts(), Toast());

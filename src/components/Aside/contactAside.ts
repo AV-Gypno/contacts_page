@@ -1,74 +1,15 @@
 import LocalStorage from '../../db/localStorage';
-import CloseButton from '../../ui/buttons/Close';
-import SaveButton from '../../ui/buttons/Save';
-import NameInput from '../../ui/inputs/Name';
-import PhoneInput from '../../ui/inputs/Phone';
-import Select from '../../ui/inputs/Select';
 import closeAll from '../../utils/closeAll';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import openToast from '../../utils/openToast';
 import Contacts from '../Contacts';
 import GroupAside from './groupAside';
+import { getContactAsideStructure } from './structures';
 
 import './style.scss';
 
-const getContactAsideStructure = () => ({
-  tag: 'aside',
-  options: { className: 'aside', id: 'contact-aside' },
-  children: [
-    {
-      tag: 'div',
-      options: {
-        className: 'aside__head',
-      },
-      children: [
-        { tag: 'h2', options: { className: 'aside__head_text', textContent: 'Добавление контакта' } },
-        { tag: '', component: CloseButton() },
-      ],
-    },
-
-    {
-      tag: 'form',
-      options: { className: 'aside__inputs' },
-      children: [
-        {
-          tag: 'div',
-          options: { className: 'input-block' },
-          children: [
-            {
-              tag: '',
-              component: NameInput(),
-            },
-            { tag: 'span', options: { className: 'tooltip name', textContent: 'Поле является обязательным' } },
-          ],
-        },
-        {
-          tag: 'div',
-          options: { className: 'input-block' },
-          children: [
-            { tag: '', component: PhoneInput() },
-            { tag: 'span', options: { className: 'tooltip phone', textContent: 'Поле является обязательным' } },
-          ],
-        },
-        {
-          tag: '',
-          component: Select(),
-        },
-      ],
-    },
-
-    { tag: 'div', options: { className: 'aside__footer' }, children: [{ tag: '', component: SaveButton(clickHandler) }] },
-  ],
-});
-
-function clickHandler() {
-  const name = document.querySelector('#name') as HTMLInputElement;
-  const phone = document.querySelector('#phone') as HTMLInputElement;
-  const group = document.querySelector('#group') as HTMLElement;
-  const ttName = document.querySelector('.tooltip.name');
-  const ttPhone = document.querySelector('.tooltip.phone');
-
+const handleMistake = (name: HTMLInputElement, phone: HTMLInputElement, ttName: HTMLElement, ttPhone: HTMLElement) => {
   if (!name.value) {
     name.classList.add('mistake');
     ttName?.classList.add('mistake');
@@ -88,13 +29,25 @@ function clickHandler() {
     phone.classList.remove('mistake');
     ttPhone?.classList.remove('mistake');
   }
+};
+
+function clickHandler() {
+  const name = document.querySelector('#name') as HTMLInputElement;
+  const phone = document.querySelector('#phone') as HTMLInputElement;
+  const group = document.querySelector('#group') as HTMLElement;
+  const ttName = document.querySelector('.tooltip.name') as HTMLElement;
+  const ttPhone = document.querySelector('.tooltip.phone') as HTMLElement;
+
+  handleMistake(name, phone, ttName, ttPhone);
 
   const groupText = group.textContent?.toLowerCase() ?? '';
   const hasGroup = groupText.toLowerCase() !== 'Выберите группу'.toLowerCase();
   const groupName = hasGroup ? groupText : 'Bce';
+
   if (phone.value && name.value) {
     const contact = LocalStorage.createDTO(name.value, phone.value, groupName);
     if (groupName === 'Bce') LocalStorage.saveGroup(groupName);
+
     const message = LocalStorage.saveContact(contact);
     if (message) {
       phone.classList.add('mistake');
@@ -102,7 +55,7 @@ function clickHandler() {
       ttPhone!.textContent = message;
     }
 
-    if (!message) openToast();
+    if (!message) openToast('Контакт успешно создан');
 
     forceUpdate(document.querySelector('#contacts-list')!, Contacts);
     forceUpdate(document.querySelector('#group-aside')!, GroupAside(false));
@@ -114,7 +67,7 @@ function clickHandler() {
 }
 
 const ContactAside = () => {
-  const ContactAside = generateComponent(getContactAsideStructure());
+  const ContactAside = generateComponent(getContactAsideStructure(clickHandler));
 
   return ContactAside;
 };
