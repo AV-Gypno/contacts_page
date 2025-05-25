@@ -260,6 +260,7 @@
     box-shadow: 0 4px 20px rgba($color: $black, $alpha: 0.05);
     margin-bottom: 5px;
     overflow: hidden;
+    position: relative;
 
     @media (max-width: $mobile) {
       margin-top: 16px;
@@ -286,7 +287,22 @@
 
     &.active {
       .accordeon-header {
-        background-color: $text-color-opacity;
+        background-color: $blue;
+
+        &::after,
+        &::before {
+          background-color: white;
+        }
+        &::after {
+          transform: rotate(45deg);
+        }
+        &::before {
+          transform: rotate(-45deg);
+        }
+      }
+
+      .accordeon-h {
+        color: white;
       }
     }
 
@@ -312,6 +328,25 @@
     cursor: pointer;
     transition: 0.3s;
     text-align: left;
+
+    &::before,
+    &::after {
+      content: '';
+      width: 9px;
+      height: 2px;
+      background-color: $text-color;
+      position: absolute;
+      right: 24px;
+      transition: 0.3s;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+      right: 29px;
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
 
     &:hover {
       background-color: #fbfbfb;
