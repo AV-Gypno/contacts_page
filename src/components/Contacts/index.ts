@@ -8,6 +8,7 @@ import EditIcon from '../../ui/icons/edit';
 import './style.scss';
 import NameInput from '../../ui/inputs/Name';
 import PhoneInput from '../../ui/inputs/Phone';
+import openToast from '../../utils/openToast';
 
 const getContactStructure = (id: string, contactName: string, contactPhone: string): IComponent => ({
   tag: 'li',
@@ -26,25 +27,31 @@ const getContactStructure = (id: string, contactName: string, contactPhone: stri
           options: { className: 'contact-li__phone', textContent: contactPhone },
         },
         {
-          tag: 'button',
-          options: { className: 'contact-button edit', id: `edit--${id}` },
+          tag: 'div',
+          options: { className: 'contact-li__buttons' },
           children: [
             {
-              tag: '',
-              component: EditIcon('edit-svg'),
-            },
-          ],
+              tag: 'button',
+              options: { className: 'contact-button edit', id: `edit--${id}` },
+              children: [
+                {
+                  tag: '',
+                  component: EditIcon('edit-svg'),
+                },
+              ],
 
-          listeners: { click: editClickHandler },
-        },
-        {
-          tag: 'button',
-          options: { className: 'contact-button delete', id: `delete--${id}` },
-          listeners: { click: deleteClickHandler },
-          children: [
+              listeners: { click: editClickHandler },
+            },
             {
-              tag: '',
-              component: DeleteSVG('delete-svg'),
+              tag: 'button',
+              options: { className: 'contact-button delete', id: `delete--${id}` },
+              listeners: { click: deleteClickHandler },
+              children: [
+                {
+                  tag: '',
+                  component: DeleteSVG('delete-svg'),
+                },
+              ],
             },
           ],
         },
@@ -55,7 +62,7 @@ const getContactStructure = (id: string, contactName: string, contactPhone: stri
 
 function editClickHandler(e: MouseEvent) {
   const target = e.target as HTMLButtonElement;
-  const container = target.parentElement?.parentElement;
+  const container = target.parentElement?.parentElement?.parentElement;
 
   const nameComponent = container?.querySelector('.contact-li__name') as HTMLElement;
   const oldName = nameComponent.textContent!;
@@ -119,6 +126,8 @@ function editClickHandler(e: MouseEvent) {
       newPhoneComponent.replaceWith(phoneComponent);
       agreeButton.replaceWith(editButton);
       denyButton.replaceWith(deleteButton);
+
+      openToast('Контакт успешно изменен');
     }
   }
 }
@@ -163,6 +172,8 @@ function deleteClickHandler(e: MouseEvent) {
   LocalStorage.deleteContact(id);
 
   forceUpdate(document.querySelector('#contacts-list')!, Contacts);
+
+  openToast('Контакт успешно удален');
 }
 
 const getContactListStructure = (): IComponent => {

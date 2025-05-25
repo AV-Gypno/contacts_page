@@ -12,6 +12,11 @@
   flex-direction: column;
   z-index: 5;
 
+  @media (max-width: $mobile) {
+    left: auto;
+    right: -312px;
+  }
+
   .aside__head {
     display: flex;
     justify-content: space-between;
@@ -35,6 +40,10 @@
 
   &.active {
     left: 0;
+    @media (max-width: $mobile) {
+      right: 0;
+      left: auto;
+    }
   }
 
   .aside__inputs {

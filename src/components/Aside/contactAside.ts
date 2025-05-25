@@ -1,10 +1,10 @@
 import LocalStorage from '../../db/localStorage';
-import type { IContact } from '../../types/contact';
 import CloseButton from '../../ui/buttons/Close';
 import SaveButton from '../../ui/buttons/Save';
 import NameInput from '../../ui/inputs/Name';
 import PhoneInput from '../../ui/inputs/Phone';
 import Select from '../../ui/inputs/Select';
+import closeAll from '../../utils/closeAll';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import openToast from '../../utils/openToast';
@@ -62,15 +62,6 @@ const getContactAsideStructure = () => ({
   ],
 });
 
-const createDTO = (name: string, phone: string, group: string): IContact => {
-  return {
-    id: phone,
-    phone: phone,
-    name: name,
-    group: group.toLowerCase(),
-  };
-};
-
 function clickHandler() {
   const name = document.querySelector('#name') as HTMLInputElement;
   const phone = document.querySelector('#phone') as HTMLInputElement;
@@ -102,7 +93,7 @@ function clickHandler() {
   const hasGroup = groupText.toLowerCase() !== 'Выберите группу'.toLowerCase();
   const groupName = hasGroup ? groupText : 'Bce';
   if (phone.value && name.value) {
-    const contact = createDTO(name.value, phone.value, groupName);
+    const contact = LocalStorage.createDTO(name.value, phone.value, groupName);
     if (groupName === 'Bce') LocalStorage.saveGroup(groupName);
     const message = LocalStorage.saveContact(contact);
     if (message) {
@@ -115,6 +106,7 @@ function clickHandler() {
 
     forceUpdate(document.querySelector('#contacts-list')!, Contacts);
     forceUpdate(document.querySelector('#group-aside')!, GroupAside(false));
+    closeAll();
 
     name.value = '';
     phone.value = '';

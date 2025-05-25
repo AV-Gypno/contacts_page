@@ -5,9 +5,11 @@ import CloseButton from '../../ui/buttons/Close';
 import SaveButton from '../../ui/buttons/Save';
 import DeleteSVG from '../../ui/icons/delete';
 import NameInput from '../../ui/inputs/Name';
+import closeAll from '../../utils/closeAll';
 import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import openPopup from '../../utils/openPopup';
+import openToast from '../../utils/openToast';
 import Contacts from '../Contacts';
 import ContactAside from './contactAside';
 
@@ -131,6 +133,8 @@ function saveClickHandler() {
       forceUpdate(document.querySelector('#contact-aside')!, ContactAside);
       forceUpdate(document.querySelector('#group-aside')!, GroupAside(true));
       forceUpdate(document.querySelector('#contacts-list')!, Contacts);
+      closeAll();
+      openToast('Группа успешно создана');
     }
   } else {
     document.querySelector('.tooltip.group')?.classList.add('mistake');
@@ -140,6 +144,7 @@ function saveClickHandler() {
 const deleteClickHandler = (e: MouseEvent) => {
   const target = e.target as HTMLButtonElement;
   const groupName = target.id;
+  closeAll();
 
   openPopup(groupName);
 };

@@ -1,4 +1,5 @@
 import type { IComponent } from '../../../types/component';
+import closeAll from '../../../utils/closeAll';
 import { generateComponent } from '../../../utils/componentGenerator';
 import { waveAnimation } from '../animations/waveAnimation';
 import commonStyles from './../common.module.scss';
@@ -13,9 +14,7 @@ const button: IComponent = {
 
 function clickHandler(e: MouseEvent) {
   waveAnimation(e.target as HTMLButtonElement, e);
-
-  document.querySelector('#popup')?.classList.remove('active');
-  document.querySelector('#top-blackout')?.classList.remove('active');
+  closeAll();
 }
 
 const CloseButton = () => {

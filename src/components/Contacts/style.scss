@@ -6,6 +6,11 @@
   justify-content: center;
   border-radius: 6px;
 
+  @media (max-width: $mobile) {
+    margin: 106px auto 50px;
+    min-width: 300px;
+  }
+
   .contact-li {
     width: 100%;
     background-color: #fff;
@@ -15,6 +20,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     &::before {
       content: '';
@@ -31,29 +41,54 @@
       text-transform: capitalize;
       overflow-wrap: anywhere;
       width: fit-content;
-      min-width: 120px;
+      min-width: 140px;
     }
 
     .contact-li__phone {
       margin-left: 20px;
       min-width: 152px;
+
+      @media (max-width: $mobile) {
+        margin-left: 0;
+      }
     }
 
     .contact-li__controls {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       width: fit-content;
+      width: 100%;
+
+      @media (max-width: $mobile) {
+        justify-content: space-between;
+      }
+    }
+
+    .contact-li__buttons {
+      display: flex;
+      justify-content: space-between;
     }
 
     #edit-name {
       width: 40%;
       margin-right: 20px;
       min-width: 180px;
+
+      @media (max-width: $mobile) {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
     }
 
     #edit-phone {
       min-width: 160px;
+
+      @media (max-width: $mobile) {
+        width: 100%;
+        margin-right: 30px;
+      }
     }
 
     .contact-button {
@@ -70,6 +105,10 @@
 
       &.agree {
         margin-left: 40px;
+
+        @media (max-width: $mobile) {
+          margin-left: 0;
+        }
 
         &::before,
         &::after {
@@ -157,6 +196,10 @@
         margin-left: 40px;
         transition: 0.15s;
 
+        @media (max-width: $mobile) {
+          margin-left: 0;
+        }
+
         &:hover {
           background-color: $blue;
 
@@ -202,7 +245,7 @@
   }
 
   @media (max-width: $tablet) {
-    width: 90%;
+    width: 91%;
   }
 
   .accordeon-item {
@@ -217,6 +260,10 @@
     box-shadow: 0 4px 20px rgba($color: $black, $alpha: 0.05);
     margin-bottom: 5px;
     overflow: hidden;
+
+    @media (max-width: $mobile) {
+      margin-top: 16px;
+    }
 
     .accordeon-content {
       display: flex;

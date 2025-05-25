@@ -8,6 +8,7 @@
   padding: 16px 20%;
   height: 70px;
   box-shadow: 0 4px 20px rgba($color: $black, $alpha: 0.05);
+  position: relative;
 
   @media (max-width: $desktop) {
     padding: 16px 10%;
@@ -15,6 +16,10 @@
 
   @media (max-width: $tablet) {
     padding: 16px 5%;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 16px 4%;
   }
 
   .contacts-book {
@@ -34,8 +39,14 @@
   .controls {
     display: flex;
 
-    & > * {
+    & > button {
       margin: 0 8px;
+    }
+
+    @media (max-width: $mobile) {
+      & > * {
+        margin: auto;
+      }
     }
   }
 }

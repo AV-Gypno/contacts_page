@@ -1,11 +1,11 @@
-import closePopup from '../../utils/closePopup';
+import closeAll from '../../utils/closeAll';
 import { generateComponent } from '../../utils/componentGenerator';
 import './style.scss';
 
 const blackout = {
   tag: 'div',
   options: { className: 'top-blackout', id: 'top-blackout' },
-  listeners: { click: closePopup },
+  listeners: { click: closeAll },
 };
 
 const Blackout = generateComponent(blackout);

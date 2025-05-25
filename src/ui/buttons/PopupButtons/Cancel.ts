@@ -1,5 +1,5 @@
 import type { IComponent } from '../../../types/component';
-import closePopup from '../../../utils/closePopup';
+import closePopup from '../../../utils/closeAll';
 import { generateComponent } from '../../../utils/componentGenerator';
 import { waveAnimation } from '../animations/waveAnimation';
 import commonStyles from './../common.module.scss';

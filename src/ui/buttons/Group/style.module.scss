@@ -6,4 +6,8 @@
   &:hover {
     background-color: $blue-hover;
   }
+
+  @media (max-width: $mobile) {
+    margin: 0 !important;
+  }
 }
