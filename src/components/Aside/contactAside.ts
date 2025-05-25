@@ -53,6 +53,7 @@ function clickHandler() {
       phone.classList.add('mistake');
       ttPhone?.classList.add('mistake');
       ttPhone!.textContent = message;
+      openToast('Контакт с таким номером уже существует', false);
     }
 
     if (!message) openToast('Контакт успешно создан');

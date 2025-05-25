@@ -8,14 +8,20 @@
   box-shadow: 0 2px 8px rgba($black, 0.15);
   position: absolute;
   bottom: 60px;
-  right: -240px;
+  right: -500px;
   z-index: 5;
-  transition: 0.2s;
+  transition: 0.4s ease-in;
+  align-items: center;
 
   .toast-text {
     font-weight: 400;
     font-size: 0.875rem;
     margin: 10px;
+  }
+
+  .toast-img {
+    max-width: 14px;
+    max-height: 14px;
   }
 
   &.active {

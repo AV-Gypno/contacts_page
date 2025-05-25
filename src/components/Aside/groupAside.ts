@@ -34,6 +34,7 @@ function saveClickHandler() {
     if (message) {
       document.querySelector('.tooltip.group')!.textContent = message;
       document.querySelector('.tooltip.group')!.classList.add('mistake');
+      openToast('Группа с таким название уже существует', false);
     }
 
     if (!message) {
