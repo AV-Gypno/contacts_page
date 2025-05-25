@@ -7,6 +7,15 @@
   width: 100%;
   padding: 16px 20%;
   height: 70px;
+  box-shadow: 0 4px 20px rgba($color: $black, $alpha: 0.05);
+
+  @media (max-width: $desktop) {
+    padding: 16px 10%;
+  }
+
+  @media (max-width: $tablet) {
+    padding: 16px 5%;
+  }
 
   .contacts-book {
     display: flex;

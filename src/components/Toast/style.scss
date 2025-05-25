@@ -9,7 +9,7 @@
   box-shadow: 0 2px 8px rgba($black, 0.15);
   position: absolute;
   bottom: 60px;
-  right: -210px;
+  right: -240px;
   z-index: 5;
   transition: 0.2s;
 
@@ -20,5 +20,13 @@
 
   &.active {
     right: 60px;
+
+    @media (max-width: $tablet) {
+      right: 16px;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    bottom: 16px;
   }
 }

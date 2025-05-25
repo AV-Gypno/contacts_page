@@ -195,10 +195,19 @@
 .accordeon {
   display: flex;
   flex-direction: column;
+  width: 60%;
+
+  @media (max-width: $desktop) {
+    width: 80%;
+  }
+
+  @media (max-width: $tablet) {
+    width: 90%;
+  }
 
   .accordeon-item {
     margin-top: 24px;
-    width: 60.5%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
