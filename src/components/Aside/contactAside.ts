@@ -9,6 +9,7 @@ import { generateComponent } from '../../utils/componentGenerator';
 import forceUpdate from '../../utils/forceUpdate';
 import openToast from '../../utils/openToast';
 import Contacts from '../Contacts';
+import GroupAside from './groupAside';
 
 import './style.scss';
 
@@ -109,12 +110,14 @@ function clickHandler() {
       ttPhone?.classList.add('mistake');
       ttPhone!.textContent = message;
     }
+
+    if (!message) openToast();
+
     forceUpdate(document.querySelector('#contacts-list')!, Contacts);
+    forceUpdate(document.querySelector('#group-aside')!, GroupAside(false));
 
     name.value = '';
     phone.value = '';
-
-    openToast();
   }
 }
 

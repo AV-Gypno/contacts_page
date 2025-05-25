@@ -87,7 +87,7 @@ function addClickHandler() {
     children: [
       {
         tag: '',
-        component: NameInput('Введите название', 'group-input'),
+        component: NameInput('', 'Введите название', 'group-input'),
       },
       { tag: 'span', options: { className: 'tooltip group', textContent: 'Поле является обязательным' } },
       {

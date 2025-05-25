@@ -4,13 +4,13 @@ import { generateComponent } from '../../../utils/componentGenerator';
 
 import style from './../common.module.scss';
 
-const phoneInput: IComponent = {
+const getPhoneInputStructure = (value: string = '', placeholder: string = 'Введите номер', id: string = 'phone'): IComponent => ({
   tag: 'input',
-  options: { type: 'text', value: '', placeholder: 'Введите номер', className: style['input'], id: 'phone' },
-};
+  options: { type: 'text', value: value, placeholder: placeholder, className: style['input'], id: id },
+});
 
-const PhoneInput = () => {
-  const component = generateComponent(phoneInput);
+const PhoneInput = (value?: string, placeholder?: string, id?: string) => {
+  const component = generateComponent(getPhoneInputStructure(value, placeholder, id));
 
   IMask(component, {
     mask: '+{375}(00)000-00-00',

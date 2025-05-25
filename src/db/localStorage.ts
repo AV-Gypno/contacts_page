@@ -9,6 +9,15 @@ class LocalStorage {
     localStorage.setItem('groups', JSON.stringify(data));
   }
 
+  static createDTO(name: string, phone: string, group?: string): IContact {
+    return {
+      id: phone,
+      name: name,
+      phone: phone,
+      group: group || 'Bce',
+    };
+  }
+
   static getContacts(): IContact[] {
     if (localStorage.getItem('contacts')) {
       return JSON.parse(localStorage.getItem('contacts') || '[]');
@@ -17,6 +26,12 @@ class LocalStorage {
     localStorage.setItem('contacts', JSON.stringify([]));
 
     return [];
+  }
+
+  static getContactById(id: string): IContact | undefined {
+    const items = this.getContacts();
+
+    return items.find((item) => item.id === id);
   }
 
   static getGroupContact(group: string): IContact[] {
@@ -58,12 +73,18 @@ class LocalStorage {
 
   static deleteGroup(deletedGroup: string): void {
     const items = this.getGroups();
-    const newItems = items.filter((group: string) => group !== deletedGroup);
+    const newItems = items.filter((group: string) => group.toLowerCase() !== deletedGroup.toLowerCase());
     this.__saveGroupsLS(newItems);
 
     const contacts = this.getContacts();
-    const newContacts = contacts.filter((contact: IContact) => contact.group !== deletedGroup);
+    const newContacts = contacts.filter((contact: IContact) => contact.group.toLowerCase() !== deletedGroup.toLowerCase());
+    console.log(deletedGroup, newContacts);
     this.__saveContactsLS(newContacts);
+  }
+
+  static editContact(oldId: string, contact: IContact) {
+    this.deleteContact(oldId);
+    this.saveContact(contact);
   }
 }
 
